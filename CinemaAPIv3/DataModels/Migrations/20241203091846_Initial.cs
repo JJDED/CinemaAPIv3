@@ -32,9 +32,8 @@ namespace DataModels.Migrations
                         .Annotation("SqlServer:Identity", "1, 1"),
                     Title = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     DurationMinutes = table.Column<int>(type: "int", nullable: false),
-                    Rating = table.Column<decimal>(type: "decimal(18,2)", nullable: false),
-                    Release = table.Column<DateOnly>(type: "date", nullable: false),
-                    GenreId = table.Column<int>(type: "int", nullable: false)
+                    Rating = table.Column<decimal>(type: "decimal(3,2)", precision: 3, nullable: false),
+                    Release = table.Column<DateOnly>(type: "date", nullable: false)
                 },
                 constraints: table =>
                 {
