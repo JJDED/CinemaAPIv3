@@ -26,14 +26,14 @@ namespace DataModels.Repositories
 
         public async Task<Address?> DeleteAsync(int id)
         {
-            var existingAddress = await dbContext.Addresses.FirstOrDefaultAsync(x => x.AddressId == id);
+            var existingAddress = await dbContext.Address.FirstOrDefaultAsync(x => x.AddressId == id);
             
-            if (existingAddress = null)
+            if (existingAddress == null)
             {
                 return null;
             }
 
-            dbContext.Address.Remote(existingAddress);
+            dbContext.Address.Remove(existingAddress);
             await dbContext.SaveChangesAsync();
             return existingAddress;
         }
@@ -50,7 +50,7 @@ namespace DataModels.Repositories
 
         public async Task<Address?> UpdateAsync(int id, Address address)
         {
-            var existingAddress = await dbContext.Address.FirstOrDefaultAsync(x => x.AddressId = id);
+            var existingAddress = await dbContext.Address.FirstOrDefaultAsync(x => x.AddressId == id);
             if (existingAddress == null)
             {
                 return null;

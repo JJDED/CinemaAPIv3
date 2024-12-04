@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace DataModels.Repositories
 {
-    public class IAddressRepository
+    public interface IAddressRepository
     {
         Task<Address> CreateAsync(Address address);
         Task<List<Address>> GetAllAsync();

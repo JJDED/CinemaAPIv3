@@ -59,7 +59,5 @@ namespace DataModels.Data
         //    modelBuilder.Entity<Movie>()
         //        .Property(e => e.Rating)
         //        .HasPrecision(3);
-    }
-
-    }
+    }    
 }

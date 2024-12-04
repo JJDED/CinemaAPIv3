@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace DataModels.Repositories
 {
-    public class ITheaterRepository
+    public interface ITheaterRepository
     {
         Task<Theater> CreateAsync(Theater theater);
         Task<List<Theater>> GetAllAsync();
