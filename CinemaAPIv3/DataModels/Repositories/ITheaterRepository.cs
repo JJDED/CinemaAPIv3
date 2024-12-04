@@ -1,0 +1,18 @@
+﻿using DataModels.Models.Domain;
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+
+namespace DataModels.Repositories
+{
+    public class ITheaterRepository
+    {
+        Task<Theater> CreateAsync(Theater theater);
+        Task<List<Theater>> GetAllAsync();
+        Task<Theater?> GetByIdAsync(int id);
+        Task<Theater?> UpdateAsync(int id, Theater theater);
+        Task<Theater?> DeleteAsync(int id);
+    }
+}

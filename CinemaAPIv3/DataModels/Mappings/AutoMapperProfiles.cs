@@ -18,6 +18,14 @@ namespace Cinema.API.Mappings
 
             // Genre
             CreateMap<Genre, GenreDto>().ReverseMap();
+
+            // Movie
+            CreateMap<Movie, MovieDto>().ReverseMap();
+
+            // Address
+            CreateMap<UpdateAddressRequestDto, Address>().ReverseMap();
+            CreateMap<AddAddressRequestDto, Address>().ReverseMap();
+            CreateMap<Address, AddressDto>().ReverseMap();
         }
     }
 }

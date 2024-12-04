@@ -58,6 +58,7 @@ namespace Cinema.API.Controllers
             {
                 return NotFound();
             }
+
             // Map Domain Model to DTO
             return Ok(mapper.Map<UserDto>(userDomainModel));
         }
@@ -77,8 +78,8 @@ namespace Cinema.API.Controllers
             {
                 return NotFound();
             }
-            // Map Domain Model to DTO
 
+            // Map Domain Model to DTO
             return Ok(mapper.Map<UserDto>(userDomainModel));
         }
 
@@ -94,9 +95,9 @@ namespace Cinema.API.Controllers
                 return NotFound(); 
             }
 
+            // Map Domain Model to DTO
             return Ok(mapper.Map<UserDto>(deletedUserDomainModel));
 
-            // Map Domain Model to DTO
 
         }
     }
