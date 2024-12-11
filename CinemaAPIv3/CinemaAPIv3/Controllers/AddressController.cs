@@ -33,7 +33,7 @@ namespace Cinema.API.Controllers
             return Ok(mapper.Map<AddressDto>(addressDomainModel));
         }
 
-        // GET Address - GET: /api/address
+        // GET ALL Address - GET: /api/address
         [HttpGet]
         public async Task<IActionResult> GetAll()
         {
@@ -43,7 +43,7 @@ namespace Cinema.API.Controllers
             return Ok(mapper.Map<List<AddressDto>>(addressDomainModel));
         }
 
-        // GET ALL Address - GET: /api/address/{id}
+        // GET BY ID Address - GET: /api/address/{id}
         [HttpGet]
         [Route("{id:int}")]
         public async Task<IActionResult> GetById(int id)

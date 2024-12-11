@@ -45,10 +45,7 @@ namespace DataModels.Repositories
 
         public async Task<User?> GetByIdAsync(int id)
         {
-            return await dbContext.Users
-                         .FirstOrDefaultAsync(x => x.UserId == id);
-
-
+            return await dbContext.Users.FirstOrDefaultAsync(x => x.UserId == id);
         }
 
         public async Task<User?> UpdateAsync(int id, User user)

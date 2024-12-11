@@ -27,6 +27,10 @@ namespace DataModels.Data
         public DbSet<Movie> Movies { get; set; }
         public DbSet<Address> Address { get; set; }
         public DbSet<Theater> Theaters { get; set; }
+        public DbSet<Hall> Hall { get; set; }
+        public DbSet<Seat> Seat { get; set; }
+        public DbSet<Showtimes> Showtimes { get; set; }
+        public DbSet<Tickets> Tickets { get; set; }
 
         // Fluent API
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
@@ -34,30 +38,5 @@ namespace DataModels.Data
             optionsBuilder.UseSqlServer("Server=(localdb)\\MSSQLLocalDB;Database=CinemaDBv3;Trusted_Connection=True;TrustServerCertificate=True");
         }
 
-        //protected override void OnModelCreating(ModelBuilder modelBuilder)
-        //{
-        //    // USER
-        //    modelBuilder.Entity<User>(entity =>
-        //    {
-        //        entity.Property(e => e.FirstName)
-        //              .HasMaxLength(50);
-        //        entity.Property(e => e.LastName)
-        //              .HasMaxLength(50);
-        //        entity.Property(e => e.Email)
-        //              .HasMaxLength(100);
-        //        entity.Property(e => e.CreateDate)
-        //        .HasDefaultValueSql("GETDATE()");
-        //    });
-
-        //    // PostalCode   
-        //    // We do not want identity on this PK
-        //    modelBuilder.Entity<PostalCode>()
-        //        .Property(e => e.PostalCodeId)
-        //        .ValueGeneratedNever();
-
-        //    // Movie
-        //    modelBuilder.Entity<Movie>()
-        //        .Property(e => e.Rating)
-        //        .HasPrecision(3);
     }    
 }

@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace DataModels.Models.DTO
 {
-    public class SeatsDto
+    public class SeatDto
     {
         public int SeatID { get; set; }
         public int TheaterID { get; set; }
