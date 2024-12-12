@@ -67,6 +67,7 @@ namespace DataModels.Repositories
             existingSeat.RowNumber = seat.RowNumber;
             existingSeat.SeatNumber = seat.SeatNumber;
             existingSeat.TheaterId = seat.TheaterId;
+            existingSeat.HallId = seat.HallId;
 
             await dbContext.SaveChangesAsync();
             return existingSeat;

@@ -8,7 +8,7 @@ namespace DataModels.Models.Domain
 {
     public class Tickets
     {
-        public int TicketId { get; set; }
+        public int TicketsId { get; set; }
         public int SeatId { get; set; }
         public DateTime PurchaseDate { get; set; }
 

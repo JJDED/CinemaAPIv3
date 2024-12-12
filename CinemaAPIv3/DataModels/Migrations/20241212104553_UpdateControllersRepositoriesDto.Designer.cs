@@ -12,8 +12,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace DataModels.Migrations
 {
     [DbContext(typeof(MyDbContext))]
-    [Migration("20241205094527_UpdateDTOsDomainAndSql")]
-    partial class UpdateDTOsDomainAndSql
+    [Migration("20241212104553_UpdateControllersRepositoriesDto")]
+    partial class UpdateControllersRepositoriesDto
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -77,6 +77,25 @@ namespace DataModels.Migrations
                     b.ToTable("Genres");
                 });
 
+            modelBuilder.Entity("DataModels.Models.Domain.Hall", b =>
+                {
+                    b.Property<int>("HallId")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("HallId"));
+
+                    b.Property<int>("SeatColumn")
+                        .HasColumnType("int");
+
+                    b.Property<int>("SeatRow")
+                        .HasColumnType("int");
+
+                    b.HasKey("HallId");
+
+                    b.ToTable("Hall");
+                });
+
             modelBuilder.Entity("DataModels.Models.Domain.Movie", b =>
                 {
                     b.Property<int>("MovieId")
@@ -89,7 +108,8 @@ namespace DataModels.Migrations
                         .HasColumnType("int");
 
                     b.Property<decimal>("Rating")
-                        .HasColumnType("decimal(18,2)");
+                        .HasPrecision(3, 1)
+                        .HasColumnType("decimal(3,1)");
 
                     b.Property<DateOnly>("Release")
                         .HasColumnType("date");
@@ -134,14 +154,36 @@ namespace DataModels.Migrations
                     b.Property<int>("SeatNumber")
                         .HasColumnType("int");
 
-                    b.Property<int>("TheaterID")
+                    b.Property<int>("TheaterId")
                         .HasColumnType("int");
 
                     b.HasKey("SeatId");
 
-                    b.HasIndex("TheaterID");
+                    b.HasIndex("TheaterId");
 
                     b.ToTable("Seat");
+                });
+
+            modelBuilder.Entity("DataModels.Models.Domain.Showtimes", b =>
+                {
+                    b.Property<int>("ShowtimesId")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("ShowtimesId"));
+
+                    b.Property<int>("MovieId")
+                        .HasColumnType("int");
+
+                    b.Property<DateTime>("ShowtimeDate")
+                        .HasColumnType("datetime2");
+
+                    b.Property<int>("TheaterId")
+                        .HasColumnType("int");
+
+                    b.HasKey("ShowtimesId");
+
+                    b.ToTable("Showtimes");
                 });
 
             modelBuilder.Entity("DataModels.Models.Domain.Theater", b =>
@@ -171,6 +213,31 @@ namespace DataModels.Migrations
                         .IsUnique();
 
                     b.ToTable("Theaters");
+                });
+
+            modelBuilder.Entity("DataModels.Models.Domain.Tickets", b =>
+                {
+                    b.Property<int>("TicketsId")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("TicketsId"));
+
+                    b.Property<DateTime>("PurchaseDate")
+                        .HasColumnType("datetime2");
+
+                    b.Property<int>("SeatId")
+                        .HasColumnType("int");
+
+                    b.Property<int>("ShowtimeId")
+                        .HasColumnType("int");
+
+                    b.Property<int>("UserId")
+                        .HasColumnType("int");
+
+                    b.HasKey("TicketsId");
+
+                    b.ToTable("Tickets");
                 });
 
             modelBuilder.Entity("DataModels.Models.Domain.User", b =>
@@ -225,7 +292,7 @@ namespace DataModels.Migrations
                 {
                     b.HasOne("DataModels.Models.Domain.Theater", "Theater")
                         .WithMany("Seats")
-                        .HasForeignKey("TheaterID")
+                        .HasForeignKey("TheaterId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 

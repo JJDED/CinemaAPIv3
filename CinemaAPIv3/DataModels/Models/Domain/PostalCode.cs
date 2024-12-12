@@ -10,5 +10,9 @@ namespace DataModels.Models.Domain
     {
         public int PostalCodeId {  get; set; }
         public string Name { get; set; }
+
+        // Foreign key
+        public int AddressId { get; set; }
+        public int UserId { get; set; }
     }
 }

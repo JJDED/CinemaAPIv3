@@ -29,7 +29,7 @@ namespace DataModels.Repositories
         // DELETE
         public async Task<Showtimes?> DeleteAsync(int id)
         {
-            var existingShowtime = await dbContext.Showtimes.FirstOrDefaultAsync(x => x.ShowtimeId == id);
+            var existingShowtime = await dbContext.Showtimes.FirstOrDefaultAsync(x => x.ShowtimesId == id);
             
             if (existingShowtime == null)
             {
@@ -50,23 +50,23 @@ namespace DataModels.Repositories
         // GET BY ID
         public async Task<Showtimes?> GetByIdAsync(int id)
         {
-            return await dbContext.Showtimes.FirstOrDefaultAsync(x => x.ShowtimeId == id);
+            return await dbContext.Showtimes.FirstOrDefaultAsync(x => x.ShowtimesId == id);
         }
 
         // UPDATE
         public async Task<Showtimes?> UpdateAsync (int id, Showtimes showtimes)
         {
-            var existingShowtime = await dbContext.Showtimes.FirstOrDefaultAsync(x => x.ShowtimeId == id);
+            var existingShowtime = await dbContext.Showtimes.FirstOrDefaultAsync(x => x.ShowtimesId == id);
 
             if (existingShowtime == null)
             {
                 return null;
             }
 
-            existingShowtime.ShowtimeId = showtimes.ShowtimeId;
+            existingShowtime.ShowtimesId = showtimes.ShowtimesId;
             existingShowtime.MovieId = showtimes.MovieId;
             existingShowtime.TheaterId = showtimes.TheaterId;
-            existingShowtime.Showtime = showtimes.Showtime;
+            existingShowtime.ShowtimeDate = showtimes.ShowtimeDate;
 
             await dbContext.SaveChangesAsync();
             return existingShowtime;

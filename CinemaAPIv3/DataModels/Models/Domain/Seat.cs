@@ -14,6 +14,7 @@ namespace DataModels.Models.Domain
 
         // Foreign key
         public int TheaterId { get; set; }
+        public int HallId { get; set; }
 
         // Navigation property
         public Theater Theater { get; set; } = null!;

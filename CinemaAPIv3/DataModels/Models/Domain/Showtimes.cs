@@ -8,9 +8,9 @@ namespace DataModels.Models.Domain
 {
     public class Showtimes
     {
-        public int ShowtimeId { get; set; }
+        public int ShowtimesId { get; set; }
         public int MovieId { get; set; }
         public int TheaterId { get; set; }
-        public DateTime Showtime { get; set; }
+        public DateTime ShowtimeDate { get; set; }
     }
 }

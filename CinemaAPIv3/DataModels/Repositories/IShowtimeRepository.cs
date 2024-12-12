@@ -9,10 +9,10 @@ namespace DataModels.Repositories
 {
     public interface IShowtimeRepository
     {
-        Task<Showtimes> CreateAsync(Showtimes showtime);
-        Task <List<Showtimes>> GetAllAsync();
+        Task<Showtimes> CreateAsync(Showtimes showtimes);
+        Task<List<Showtimes>> GetAllAsync();
         Task<Showtimes?> GetByIdAsync(int id);
-        Task<Showtimes?> UpdateAsync(int id, Showtimes showtime);
+        Task<Showtimes?> UpdateAsync(int id, Showtimes showtimes);
         Task<Showtimes?> DeleteAsync(int id);
     }
 }

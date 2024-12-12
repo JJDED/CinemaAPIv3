@@ -29,7 +29,7 @@ namespace DataModels.Repositories
         // DELETE
         public async Task<Tickets?> DeleteAsync(int id)
         {
-            var existingTicket = await dbContext.Tickets.FirstOrDefaultAsync(x => x.TicketId == id);
+            var existingTicket = await dbContext.Tickets.FirstOrDefaultAsync(x => x.TicketsId == id);
 
             if (existingTicket == null)
             {
@@ -50,20 +50,20 @@ namespace DataModels.Repositories
         // GET BY ID
         public async Task<Tickets?> GetByIdAsync(int id)
         {
-            return await dbContext.Tickets.FirstOrDefaultAsync(x => x.TicketId == id);
+            return await dbContext.Tickets.FirstOrDefaultAsync(x => x.TicketsId == id);
         }
 
         // UPDATE
         public async Task<Tickets?> UpdateAsync(int id, Tickets tickets)
         {
-            var existingTicket = await dbContext.Tickets.FirstOrDefaultAsync(x => x.TicketId == id);
+            var existingTicket = await dbContext.Tickets.FirstOrDefaultAsync(x => x.TicketsId == id);
             
             if (existingTicket == null)
             {
                 return null;
             }
 
-            existingTicket.TicketId = tickets.TicketId;
+            existingTicket.TicketsId = tickets.TicketsId;
             existingTicket.SeatId = tickets.SeatId;
             existingTicket.PurchaseDate = tickets.PurchaseDate;
             existingTicket.ShowtimeId = tickets.ShowtimeId;

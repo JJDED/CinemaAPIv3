@@ -22,7 +22,7 @@ namespace DataModels.Data
             this.dbContextOptions = dbContextOptions;
         }
         public DbSet<User> Users { get; set; }
-        public DbSet<PostalCode > PostalCodes { get; set; }
+        public DbSet<PostalCode> PostalCodes { get; set; }
         public DbSet<Genre> Genres { get; set; }
         public DbSet<Movie> Movies { get; set; }
         public DbSet<Address> Address { get; set; }
@@ -36,6 +36,11 @@ namespace DataModels.Data
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
             optionsBuilder.UseSqlServer("Server=(localdb)\\MSSQLLocalDB;Database=CinemaDBv3;Trusted_Connection=True;TrustServerCertificate=True");
+        }
+
+        protected override void OnModelCreating(ModelBuilder modelBuilder)
+        {
+            modelBuilder.Entity<Movie>().Property(m => m.Rating).HasPrecision(3, 1);
         }
 
     }    

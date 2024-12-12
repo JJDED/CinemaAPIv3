@@ -17,5 +17,6 @@ namespace DataModels.Models.Domain
         // Navigation Property
         public PostalCode PostalCode { get; set; }
         public int PostalCodeId { get; set; }
+        public int TicketId { get; set; }
     }
 }

@@ -15,5 +15,8 @@ namespace DataModels.Models.Domain
         public decimal Rating { get; set; }
         public DateOnly Release { get; set; }
         public List<Genre> Genres { get; set; } = new List<Genre>();
+
+        // Foreign Key
+        public int ShowtimeId { get; set; }
     }
 }
