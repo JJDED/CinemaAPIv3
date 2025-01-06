@@ -58,10 +58,7 @@ namespace DataModels.Repositories
                 return null;
             }
 
-            existingAddress.Street1 = address.Street1;
-            existingAddress.Street2 = address.Street2;
-            existingAddress.StreetNumber = address.StreetNumber;
-            existingAddress.StreetNumber = address.StreetNumber;
+            existingAddress.AddressName = address.AddressName;
 
             await dbContext.SaveChangesAsync();
             return existingAddress;

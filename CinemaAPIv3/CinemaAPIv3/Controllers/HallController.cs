@@ -32,7 +32,7 @@ namespace Cinema.API.Controllers
             return Ok(mapper.Map<HallDto>(hallDomainModel));
         }
 
-        // GET Hall - GET: /api/hall/{id}
+        // GET Hall - GET: /api/hall
         [HttpGet]
         public async Task <IActionResult> GetAll()
         {
@@ -42,8 +42,9 @@ namespace Cinema.API.Controllers
             return Ok(mapper.Map<List<HallDto>> (hallDomainModel));
         }
 
-        // GET ALL Hall - Get: /api/hall
-        [HttpPost]
+        // GET ALL Hall - Get: /api/hall/{id}
+        [HttpGet]
+        [Route("{id:int}")]
         public async Task<IActionResult> GetById(int id)
         {
             var hallDomainModel = await hallRepository.GetByIdAsync(id);
@@ -91,9 +92,9 @@ namespace Cinema.API.Controllers
             return Ok(mapper.Map<HallDto>(hallDomainModel));
         }
 
-        public IActionResult Index()
-        {
-            return View();
-        }
+        //public IActionResult Index()
+        //{
+        //    return View();
+        //}
     }
 }

@@ -13,7 +13,10 @@ namespace DataModels.Models.Domain
         public DateTime PurchaseDate { get; set; }
 
         // Foreign keys
-        public int ShowtimeId { get; set; }
-        public int UserId { get; set; }
+        public List<User> Users { get; set; } = new List<User>();
+
+        // Navigation properties
+        public Seat Seat { get; set; } = null!;
+        public Showtimes showtimes { get; set; } = null!;
     }
 }

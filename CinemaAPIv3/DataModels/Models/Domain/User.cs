@@ -15,8 +15,8 @@ namespace DataModels.Models.Domain
         public DateTime CreateDate { get; set; }
 
         // Navigation Property
-        public PostalCode PostalCode { get; set; }
         public int PostalCodeId { get; set; }
+        public PostalCode PostalCode { get; set; }
         public int TicketId { get; set; }
     }
 }

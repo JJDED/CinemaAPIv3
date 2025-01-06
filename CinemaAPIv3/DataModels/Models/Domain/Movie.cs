@@ -17,6 +17,7 @@ namespace DataModels.Models.Domain
         public List<Genre> Genres { get; set; } = new List<Genre>();
 
         // Foreign Key
-        public int ShowtimeId { get; set; }
+        public int ShowtimesId { get; set; }
+        public List<Showtimes> Showtimes { get; set; } = new List<Showtimes>();
     }
 }

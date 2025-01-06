@@ -12,11 +12,7 @@ namespace DataModels.Models.Domain
         public int RowNumber { get; set; }
         public int SeatNumber { get; set; }
 
-        // Foreign key
-        public int TheaterId { get; set; }
-        public int HallId { get; set; }
-
         // Navigation property
-        public Theater Theater { get; set; } = null!;
+        public List<Hall> Halls { get; set; } = new List<Hall>();
     }
 }

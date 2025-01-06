@@ -35,7 +35,7 @@ namespace DataModels.Data
         // Fluent API
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
-            optionsBuilder.UseSqlServer("Server=(localdb)\\MSSQLLocalDB;Database=CinemaDBv3;Trusted_Connection=True;TrustServerCertificate=True");
+            optionsBuilder.UseSqlServer("Data Source=D4TECH16\\SQLEXPRESS;Database=CinemaDBv3;Integrated Security=True;Encrypt=True;Trust Server Certificate=True");
         }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)

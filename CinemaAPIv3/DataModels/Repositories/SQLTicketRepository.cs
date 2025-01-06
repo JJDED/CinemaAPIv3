@@ -66,7 +66,6 @@ namespace DataModels.Repositories
             existingTicket.TicketsId = tickets.TicketsId;
             existingTicket.SeatId = tickets.SeatId;
             existingTicket.PurchaseDate = tickets.PurchaseDate;
-            existingTicket.ShowtimeId = tickets.ShowtimeId;
 
             await dbContext.SaveChangesAsync();
             return existingTicket;

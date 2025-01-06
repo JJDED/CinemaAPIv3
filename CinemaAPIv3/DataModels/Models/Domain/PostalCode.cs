@@ -12,7 +12,7 @@ namespace DataModels.Models.Domain
         public string Name { get; set; }
 
         // Foreign key
-        public int AddressId { get; set; }
-        public int UserId { get; set; }
+        public List<Address> Addresses { get; set; } = new List<Address>();
+        public List<User> Users { get; set; } = new List<User>();
     }
 }

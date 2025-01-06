@@ -12,8 +12,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace DataModels.Migrations
 {
     [DbContext(typeof(MyDbContext))]
-    [Migration("20241212104553_UpdateControllersRepositoriesDto")]
-    partial class UpdateControllersRepositoriesDto
+    [Migration("20250106095722_InitialDB")]
+    partial class InitialDB
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -33,29 +33,16 @@ namespace DataModels.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("AddressId"));
 
-                    b.Property<string>("Apartment")
+                    b.Property<string>("AddressName")
+                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("Building")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<int?>("Floor")
-                        .HasColumnType("int");
 
                     b.Property<int>("PostalCodeId")
                         .HasColumnType("int");
 
-                    b.Property<string>("Street1")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("Street2")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<int>("StreetNumber")
-                        .HasColumnType("int");
-
                     b.HasKey("AddressId");
+
+                    b.HasIndex("PostalCodeId");
 
                     b.ToTable("Address");
                 });
@@ -91,7 +78,17 @@ namespace DataModels.Migrations
                     b.Property<int>("SeatRow")
                         .HasColumnType("int");
 
+                    b.Property<int?>("ShowtimesId")
+                        .HasColumnType("int");
+
+                    b.Property<int>("TheaterId")
+                        .HasColumnType("int");
+
                     b.HasKey("HallId");
+
+                    b.HasIndex("ShowtimesId");
+
+                    b.HasIndex("TheaterId");
 
                     b.ToTable("Hall");
                 });
@@ -113,6 +110,9 @@ namespace DataModels.Migrations
 
                     b.Property<DateOnly>("Release")
                         .HasColumnType("date");
+
+                    b.Property<int>("ShowtimesId")
+                        .HasColumnType("int");
 
                     b.Property<string>("Title")
                         .IsRequired()
@@ -154,12 +154,7 @@ namespace DataModels.Migrations
                     b.Property<int>("SeatNumber")
                         .HasColumnType("int");
 
-                    b.Property<int>("TheaterId")
-                        .HasColumnType("int");
-
                     b.HasKey("SeatId");
-
-                    b.HasIndex("TheaterId");
 
                     b.ToTable("Seat");
                 });
@@ -182,6 +177,8 @@ namespace DataModels.Migrations
                         .HasColumnType("int");
 
                     b.HasKey("ShowtimesId");
+
+                    b.HasIndex("MovieId");
 
                     b.ToTable("Showtimes");
                 });
@@ -229,13 +226,14 @@ namespace DataModels.Migrations
                     b.Property<int>("SeatId")
                         .HasColumnType("int");
 
-                    b.Property<int>("ShowtimeId")
-                        .HasColumnType("int");
-
-                    b.Property<int>("UserId")
+                    b.Property<int>("ShowtimesId")
                         .HasColumnType("int");
 
                     b.HasKey("TicketsId");
+
+                    b.HasIndex("SeatId");
+
+                    b.HasIndex("ShowtimesId");
 
                     b.ToTable("Tickets");
                 });
@@ -266,9 +264,17 @@ namespace DataModels.Migrations
                     b.Property<int>("PostalCodeId")
                         .HasColumnType("int");
 
+                    b.Property<int>("TicketId")
+                        .HasColumnType("int");
+
+                    b.Property<int?>("TicketsId")
+                        .HasColumnType("int");
+
                     b.HasKey("UserId");
 
                     b.HasIndex("PostalCodeId");
+
+                    b.HasIndex("TicketsId");
 
                     b.ToTable("Users");
                 });
@@ -288,15 +294,54 @@ namespace DataModels.Migrations
                     b.ToTable("GenreMovie");
                 });
 
-            modelBuilder.Entity("DataModels.Models.Domain.Seat", b =>
+            modelBuilder.Entity("HallSeat", b =>
                 {
+                    b.Property<int>("HallsHallId")
+                        .HasColumnType("int");
+
+                    b.Property<int>("SeatsSeatId")
+                        .HasColumnType("int");
+
+                    b.HasKey("HallsHallId", "SeatsSeatId");
+
+                    b.HasIndex("SeatsSeatId");
+
+                    b.ToTable("HallSeat");
+                });
+
+            modelBuilder.Entity("DataModels.Models.Domain.Address", b =>
+                {
+                    b.HasOne("DataModels.Models.Domain.PostalCode", null)
+                        .WithMany("Addresses")
+                        .HasForeignKey("PostalCodeId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+                });
+
+            modelBuilder.Entity("DataModels.Models.Domain.Hall", b =>
+                {
+                    b.HasOne("DataModels.Models.Domain.Showtimes", null)
+                        .WithMany("Halls")
+                        .HasForeignKey("ShowtimesId");
+
                     b.HasOne("DataModels.Models.Domain.Theater", "Theater")
-                        .WithMany("Seats")
+                        .WithMany("Halls")
                         .HasForeignKey("TheaterId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
                     b.Navigation("Theater");
+                });
+
+            modelBuilder.Entity("DataModels.Models.Domain.Showtimes", b =>
+                {
+                    b.HasOne("DataModels.Models.Domain.Movie", "Movie")
+                        .WithMany("Showtimes")
+                        .HasForeignKey("MovieId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Movie");
                 });
 
             modelBuilder.Entity("DataModels.Models.Domain.Theater", b =>
@@ -310,13 +355,36 @@ namespace DataModels.Migrations
                     b.Navigation("Address");
                 });
 
+            modelBuilder.Entity("DataModels.Models.Domain.Tickets", b =>
+                {
+                    b.HasOne("DataModels.Models.Domain.Seat", "Seat")
+                        .WithMany()
+                        .HasForeignKey("SeatId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("DataModels.Models.Domain.Showtimes", "showtimes")
+                        .WithMany("Tickets")
+                        .HasForeignKey("ShowtimesId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Seat");
+
+                    b.Navigation("showtimes");
+                });
+
             modelBuilder.Entity("DataModels.Models.Domain.User", b =>
                 {
                     b.HasOne("DataModels.Models.Domain.PostalCode", "PostalCode")
-                        .WithMany()
+                        .WithMany("Users")
                         .HasForeignKey("PostalCodeId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
+
+                    b.HasOne("DataModels.Models.Domain.Tickets", null)
+                        .WithMany("Users")
+                        .HasForeignKey("TicketsId");
 
                     b.Navigation("PostalCode");
                 });
@@ -336,14 +404,53 @@ namespace DataModels.Migrations
                         .IsRequired();
                 });
 
+            modelBuilder.Entity("HallSeat", b =>
+                {
+                    b.HasOne("DataModels.Models.Domain.Hall", null)
+                        .WithMany()
+                        .HasForeignKey("HallsHallId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("DataModels.Models.Domain.Seat", null)
+                        .WithMany()
+                        .HasForeignKey("SeatsSeatId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+                });
+
             modelBuilder.Entity("DataModels.Models.Domain.Address", b =>
                 {
                     b.Navigation("Theater");
                 });
 
+            modelBuilder.Entity("DataModels.Models.Domain.Movie", b =>
+                {
+                    b.Navigation("Showtimes");
+                });
+
+            modelBuilder.Entity("DataModels.Models.Domain.PostalCode", b =>
+                {
+                    b.Navigation("Addresses");
+
+                    b.Navigation("Users");
+                });
+
+            modelBuilder.Entity("DataModels.Models.Domain.Showtimes", b =>
+                {
+                    b.Navigation("Halls");
+
+                    b.Navigation("Tickets");
+                });
+
             modelBuilder.Entity("DataModels.Models.Domain.Theater", b =>
                 {
-                    b.Navigation("Seats");
+                    b.Navigation("Halls");
+                });
+
+            modelBuilder.Entity("DataModels.Models.Domain.Tickets", b =>
+                {
+                    b.Navigation("Users");
                 });
 #pragma warning restore 612, 618
         }

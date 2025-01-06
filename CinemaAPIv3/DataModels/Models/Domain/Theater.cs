@@ -18,6 +18,7 @@ namespace DataModels.Models.Domain
 
         // Navigation property
         public Address? Address { get; set; }
-        public List<Seat> Seats { get; set; } = new List<Seat>();
+        public List<Hall> Halls { get; set; } = new List<Hall>();
+
     }
 }

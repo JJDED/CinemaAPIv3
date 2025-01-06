@@ -66,8 +66,8 @@ namespace DataModels.Repositories
             existingSeat.SeatId = seat.SeatId;
             existingSeat.RowNumber = seat.RowNumber;
             existingSeat.SeatNumber = seat.SeatNumber;
-            existingSeat.TheaterId = seat.TheaterId;
-            existingSeat.HallId = seat.HallId;
+            //existingSeat.TheaterId = seat.TheaterId;
+            //existingSeat.HallId = seat.HallId; -- Skal udtrække data fra en liste
 
             await dbContext.SaveChangesAsync();
             return existingSeat;
