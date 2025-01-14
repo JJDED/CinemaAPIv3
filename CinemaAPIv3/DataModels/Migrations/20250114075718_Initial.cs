@@ -6,7 +6,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 namespace DataModels.Migrations
 {
     /// <inheritdoc />
-    public partial class InitialDB : Migration
+    public partial class Initial : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
@@ -15,13 +15,13 @@ namespace DataModels.Migrations
                 name: "Genres",
                 columns: table => new
                 {
-                    GenreID = table.Column<int>(type: "int", nullable: false)
+                    GenreId = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
                     GenreName = table.Column<string>(type: "nvarchar(max)", nullable: false)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_Genres", x => x.GenreID);
+                    table.PrimaryKey("PK_Genres", x => x.GenreId);
                 });
 
             migrationBuilder.CreateTable(
@@ -32,8 +32,6 @@ namespace DataModels.Migrations
                         .Annotation("SqlServer:Identity", "1, 1"),
                     Title = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     DurationMinutes = table.Column<int>(type: "int", nullable: false),
-                    Rating = table.Column<decimal>(type: "decimal(3,1)", precision: 3, scale: 1, nullable: false),
-                    Release = table.Column<DateOnly>(type: "date", nullable: false),
                     ShowtimesId = table.Column<int>(type: "int", nullable: false)
                 },
                 constraints: table =>
@@ -72,17 +70,17 @@ namespace DataModels.Migrations
                 name: "GenreMovie",
                 columns: table => new
                 {
-                    GenresGenreID = table.Column<int>(type: "int", nullable: false),
+                    GenresGenreId = table.Column<int>(type: "int", nullable: false),
                     MoviesMovieId = table.Column<int>(type: "int", nullable: false)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_GenreMovie", x => new { x.GenresGenreID, x.MoviesMovieId });
+                    table.PrimaryKey("PK_GenreMovie", x => new { x.GenresGenreId, x.MoviesMovieId });
                     table.ForeignKey(
-                        name: "FK_GenreMovie_Genres_GenresGenreID",
-                        column: x => x.GenresGenreID,
+                        name: "FK_GenreMovie_Genres_GenresGenreId",
+                        column: x => x.GenresGenreId,
                         principalTable: "Genres",
-                        principalColumn: "GenreID",
+                        principalColumn: "GenreId",
                         onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
                         name: "FK_GenreMovie_Movies_MoviesMovieId",

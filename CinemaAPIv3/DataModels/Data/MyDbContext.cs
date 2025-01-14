@@ -38,10 +38,10 @@ namespace DataModels.Data
             optionsBuilder.UseSqlServer("Data Source=D4TECH16\\SQLEXPRESS;Database=CinemaDBv3;Integrated Security=True;Encrypt=True;Trust Server Certificate=True");
         }
 
-        protected override void OnModelCreating(ModelBuilder modelBuilder)
-        {
-            modelBuilder.Entity<Movie>().Property(m => m.Rating).HasPrecision(3, 1);
-        }
+        //protected override void OnModelCreating(ModelBuilder modelBuilder)
+        //{
+        //    modelBuilder.Entity<Movie>().Property(m => m.Rating).HasPrecision(3, 1);
+        //}
 
     }    
 }

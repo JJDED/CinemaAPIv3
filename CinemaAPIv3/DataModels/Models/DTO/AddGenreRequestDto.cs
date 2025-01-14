@@ -9,8 +9,8 @@ namespace DataModels.Models.DTO
 {
     public class AddGenreRequestDto
     {
-        public int GenreID { get; set; }
+        public int GenreId { get; set; }
         public string GenreName { get; set; }
-        public List<Movie> Movies { get; set; } = new List<Movie>();
+         public List<Movie> Movies { get; set; } = new List<Movie>();
     }
 }

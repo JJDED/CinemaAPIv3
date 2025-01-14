@@ -33,6 +33,41 @@ namespace Cinema.API.Controllers
             return Ok(mapper.Map<SeatDto>(seatDomainModel));
         }
 
+        [HttpPost("Create Multiple Seats")]
+        public async Task<IActionResult> CreateMultipleSeats(AddSeatRequestDto seatDimension)
+        {
+            List<Seat> seatList = new List<Seat>();
+
+            for (int i = 0; i < seatDimension.RowNumber; i++)
+            {
+                for (int o = 0; o < seatDimension.SeatNumber; o++)
+                {
+                    Seat seat = new Seat();
+                    seat.RowNumber = i + 1;
+                    seat.SeatNumber = o + 1;
+
+                    Hall hall = new Hall();
+                    hall.HallId = 1;
+                    seat.Halls.Add(hall);
+                    seatList.Add(seat);
+                }
+            }
+
+            //for (int i = 0; i < row; i++)
+            //{
+            //    for (int o = 0; o < 3; o++)
+            //    {
+            //        Seat seat = new Seat();
+            //        seat.RowNumber = i;
+            //        seat.SeatNumber = o;
+            //        seatList.Add(seat);
+            //    }
+            //}
+
+            await seatRepository.CreateAsync(seatList);
+            return Ok(seatList);
+        }
+
         // GET Seat BY ID - GET: /api/seat/{id}
         [HttpGet]
         [Route("{id:int}")]

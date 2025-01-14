@@ -9,14 +9,13 @@ namespace DataModels.Models.DTO
 {
     public class AddSeatRequestDto
     {
-        public int SeatId { get; set; }
         public int RowNumber { get; set; }
         public int SeatNumber { get; set; }
 
         // Foreign key
-        public int TheaterID { get; set; }
+        public int HallID { get; set; }
 
         // Navigation property
-        public Theater Theater { get; set; } = null!;
+        // public Theater Theater { get; set; } = null!;
     }
 }

@@ -9,7 +9,7 @@ using System.Threading.Tasks;
 
 namespace DataModels.Repositories
 {
-    internal class SQLMovieRepository
+    public class SQLMovieRepository : IMovieRepository
     {
         private readonly MyDbContext dbContext;
 
@@ -61,8 +61,8 @@ namespace DataModels.Repositories
 
             existingMovie.Title = movie.Title;
             existingMovie.DurationMinutes = movie.DurationMinutes;
-            existingMovie.Release = movie.Release;
-            existingMovie.Rating = movie.Rating;
+            //existingMovie.Release = movie.Release;
+            //existingMovie.Rating = movie.Rating;
             existingMovie.Genres = movie.Genres;
 
             await dbContext.SaveChangesAsync();

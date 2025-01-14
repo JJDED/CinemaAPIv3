@@ -1,4 +1,5 @@
 ﻿using AutoMapper;
+using DataModels.Models.Domain;
 using DataModels.Models.DTO;
 using DataModels.Repositories;
 using Microsoft.AspNetCore.Http;
@@ -19,9 +20,21 @@ namespace Cinema.API.Controllers
             this.genreRepository = genreRepository;
         }
 
+        // CREATE Genre - Post: api/genre
+        [HttpPost]
+        public async Task<IActionResult> Create([FromBody] AddGenreRequestDto addGenreRequestDto)
+        {
+            // Map DTO to Domain
+            var genreDomainModel = mapper.Map<Genre>(addGenreRequestDto);
+
+            await genreRepository.CreateAsync(genreDomainModel);
+
+            // Map Domain to DTO
+            return Ok(mapper.Map<GenreDto>(genreDomainModel));
+        }
+
         // GET Genre
         // GET: /api/genres
-
         [HttpGet]
         public async Task<IActionResult> GetAll()
         {
@@ -45,6 +58,41 @@ namespace Cinema.API.Controllers
             }
             // Map Domain Model to DTO
             return Ok(mapper.Map<GenreDto>(genreDomainModel));
+        }
+
+        // UPDATE Genre - PUT: /api/Genre/{}
+        [HttpPut]
+        [Route("{id:int}")]
+        public async Task<IActionResult> Update(int id, [FromBody] UpdateGenreRequestDto updateGenreRequestDto)
+        {
+            // Map DTO to Domain
+            var genreDomainModel = mapper.Map<Genre>(updateGenreRequestDto);
+
+            genreDomainModel = await genreRepository.UpdateAsync(id, genreDomainModel);
+            
+            if (genreDomainModel == null)
+            {
+                return NotFound();
+            }
+
+            // Map Domain to DTO
+            return Ok(mapper.Map<GenreDto>(genreDomainModel));
+        }
+
+        // DELETE Genre - DELETE: /api/seat/{id}
+        [HttpDelete]
+        [Route("{id:int}")]
+        public async Task<IActionResult> Delete(int id)
+        {
+            var deletedGenre = await genreRepository.DeleteAsync(id);
+            
+            if (deletedGenre == null)
+            {
+                return NotFound();
+            }
+
+            // Map domain to DTO
+            return Ok(mapper.Map<GenreDto>(deletedGenre));
         }
     }
 }

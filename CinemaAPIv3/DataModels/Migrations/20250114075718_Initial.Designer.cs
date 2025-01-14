@@ -12,8 +12,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace DataModels.Migrations
 {
     [DbContext(typeof(MyDbContext))]
-    [Migration("20250106095722_InitialDB")]
-    partial class InitialDB
+    [Migration("20250114075718_Initial")]
+    partial class Initial
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -49,17 +49,17 @@ namespace DataModels.Migrations
 
             modelBuilder.Entity("DataModels.Models.Domain.Genre", b =>
                 {
-                    b.Property<int>("GenreID")
+                    b.Property<int>("GenreId")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int");
 
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("GenreID"));
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("GenreId"));
 
                     b.Property<string>("GenreName")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.HasKey("GenreID");
+                    b.HasKey("GenreId");
 
                     b.ToTable("Genres");
                 });
@@ -103,13 +103,6 @@ namespace DataModels.Migrations
 
                     b.Property<int>("DurationMinutes")
                         .HasColumnType("int");
-
-                    b.Property<decimal>("Rating")
-                        .HasPrecision(3, 1)
-                        .HasColumnType("decimal(3,1)");
-
-                    b.Property<DateOnly>("Release")
-                        .HasColumnType("date");
 
                     b.Property<int>("ShowtimesId")
                         .HasColumnType("int");
@@ -281,13 +274,13 @@ namespace DataModels.Migrations
 
             modelBuilder.Entity("GenreMovie", b =>
                 {
-                    b.Property<int>("GenresGenreID")
+                    b.Property<int>("GenresGenreId")
                         .HasColumnType("int");
 
                     b.Property<int>("MoviesMovieId")
                         .HasColumnType("int");
 
-                    b.HasKey("GenresGenreID", "MoviesMovieId");
+                    b.HasKey("GenresGenreId", "MoviesMovieId");
 
                     b.HasIndex("MoviesMovieId");
 
@@ -393,7 +386,7 @@ namespace DataModels.Migrations
                 {
                     b.HasOne("DataModels.Models.Domain.Genre", null)
                         .WithMany()
-                        .HasForeignKey("GenresGenreID")
+                        .HasForeignKey("GenresGenreId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 

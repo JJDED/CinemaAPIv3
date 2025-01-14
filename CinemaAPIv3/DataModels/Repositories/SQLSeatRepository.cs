@@ -23,6 +23,15 @@ namespace DataModels.Repositories
         {
             await dbContext.Seat.AddAsync(seat);
             await dbContext.SaveChangesAsync();
+            // await dbContext.Seat.AddRangeAsync(seat);
+            return seat;
+        }
+
+        // CREATE MULTIPLE SEATS
+        public async Task<List<Seat>> CreateAsync(List<Seat> seat)
+        {
+            await dbContext.Seat.AddRangeAsync(seat);
+            await dbContext.SaveChangesAsync();
             return seat;
         }
 

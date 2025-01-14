@@ -19,6 +19,7 @@ builder.Services.AddDbContext<MyDbContext>(options =>
 builder.Services.AddScoped<IUserRepository, SQLUserRepository>();
 builder.Services.AddScoped<IPostalCodeRepository, SQLPostalCodeRepository>();
 builder.Services.AddScoped<IGenreRepository, SQLGenreRepository>();
+builder.Services.AddScoped<ISeatRepository, SQLSeatRepository>();
 builder.Services.AddAutoMapper(typeof(AutoMapperProfiles));
 
 builder.Services.AddCors(options =>
