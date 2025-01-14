@@ -189,16 +189,16 @@ namespace Cinema.API.Controllers
         }
 
         [HttpGet("Opgave 11")]
-        public List<Seat> OpgaveElleve()
+        public List<SeatModel> OpgaveElleve()
         {
             int[] opgaveElleveArray = new int[50];
             var tal1 = 5;
             var tal2 = 2;
-            List<Seat> seatList = new List<Seat>();
+            List<SeatModel> seatList = new List<SeatModel>();
 
             for (int i = tal2; i < tal1; i++)
             {
-                Seat seat = new Seat();
+                SeatModel seat = new SeatModel();
                 seat.RowNumber = 5;
                 seatList.Add(seat);
             }
@@ -207,18 +207,18 @@ namespace Cinema.API.Controllers
         }
 
         [HttpGet("Seat Opgave")]
-        public List<Seat> SeatOpgave()
+        public List<SeatModel> SeatOpgave()
         {
             int[] seatArray = new int[50];
             var row = 12;
             var column = 10;
-            List<Seat> seatList = new List<Seat>();
+            List<SeatModel> seatList = new List<SeatModel>();
 
             for (int i = column; i < row; i++)
             {
                 for (int o = 0; o < 3; o++)
                 {
-                    Seat seat = new Seat();
+                    SeatModel seat = new SeatModel();
                     seat.RowNumber = i;
                     seat.SeatNumber = o;
                     seatList.Add(seat);

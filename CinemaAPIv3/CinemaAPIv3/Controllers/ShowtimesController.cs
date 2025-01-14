@@ -1,9 +1,9 @@
 ﻿using AutoMapper;
 using DataModels.Repositories;
 using DataModels.Models.Domain;
-using DataModels.Models.DTO;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using DataModels.Models.DTO.Showtime;
 
 namespace Cinema.API.Controllers
 {
@@ -19,7 +19,7 @@ namespace Cinema.API.Controllers
         public async Task<IActionResult> Create([FromBody] AddShowtimeRequestDto addShowtimeRequestDto)
         {
             // Map DTO to Domain
-            var showtimeDomainModel = mapper.Map<Showtimes>(addShowtimeRequestDto);
+            var showtimeDomainModel = mapper.Map<ShowtimesModel>(addShowtimeRequestDto);
 
             await showtimeRepository.CreateAsync(showtimeDomainModel);
 
@@ -61,7 +61,7 @@ namespace Cinema.API.Controllers
         public async Task<IActionResult> Update(int id, [FromBody] UpdateShowtimesRequestDto updateShowtimesRequestDto)
         {
             // Map DTO to Domain
-            var showtimesDomainModel = mapper.Map<Showtimes>(updateShowtimesRequestDto);
+            var showtimesDomainModel = mapper.Map<ShowtimesModel>(updateShowtimesRequestDto);
 
             showtimesDomainModel = await showtimeRepository.UpdateAsync(id, showtimesDomainModel); ;
 

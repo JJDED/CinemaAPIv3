@@ -9,10 +9,10 @@ namespace DataModels.Repositories
 {
     public interface IPostalCodeRepository
     {
-        Task<PostalCode> CreateAsync(PostalCode postalCode);
-        Task<List<PostalCode>> GetAllAsync();
-        Task<PostalCode?> GetByIdAsync(int id);
-        Task<PostalCode?> UpdateAsync(int id, PostalCode postalCode);
-        Task<PostalCode?> DeleteAsync(int id);
+        Task<PostalCodeModel> CreateAsync(PostalCodeModel postalCode);
+        Task<List<PostalCodeModel>> GetAllAsync();
+        Task<PostalCodeModel?> GetByIdAsync(int id);
+        Task<PostalCodeModel?> UpdateAsync(int id, PostalCodeModel postalCode);
+        Task<PostalCodeModel?> DeleteAsync(int id);
     }
 }

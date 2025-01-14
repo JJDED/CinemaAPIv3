@@ -9,10 +9,10 @@ namespace DataModels.Repositories
 {
     public interface ITheaterRepository
     {
-        Task<Theater> CreateAsync(Theater theater);
-        Task<List<Theater>> GetAllAsync();
-        Task<Theater?> GetByIdAsync(int id);
-        Task<Theater?> UpdateAsync(int id, Theater theater);
-        Task<Theater?> DeleteAsync(int id);
+        Task<TheaterModel> CreateAsync(TheaterModel theater);
+        Task<List<TheaterModel>> GetAllAsync();
+        Task<TheaterModel?> GetByIdAsync(int id);
+        Task<TheaterModel?> UpdateAsync(int id, TheaterModel theater);
+        Task<TheaterModel?> DeleteAsync(int id);
     }
 }

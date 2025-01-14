@@ -9,10 +9,10 @@ namespace DataModels.Repositories
 {
     public interface IUserRepository
     {
-        Task<User> CreateAsync(User user);
-        Task<List<User>> GetAllAsync();
-        Task<User?> GetByIdAsync(int id);
-        Task<User?> UpdateAsync(int id, User user);
-        Task<User?> DeleteAsync(int id);
+        Task<UserModel> CreateAsync(UserModel user);
+        Task<List<UserModel>> GetAllAsync();
+        Task<UserModel?> GetByIdAsync(int id);
+        Task<UserModel?> UpdateAsync(int id, UserModel user);
+        Task<UserModel?> DeleteAsync(int id);
     }
 }

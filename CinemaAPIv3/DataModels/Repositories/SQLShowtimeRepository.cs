@@ -19,7 +19,7 @@ namespace DataModels.Repositories
         }
 
         // CREATE
-        public async Task<Showtimes> CreateAsync(Showtimes showtimes)
+        public async Task<ShowtimesModel> CreateAsync(ShowtimesModel showtimes)
         {
             await dbContext.Showtimes.AddAsync(showtimes);
             await dbContext.SaveChangesAsync();
@@ -27,9 +27,9 @@ namespace DataModels.Repositories
         }
 
         // DELETE
-        public async Task<Showtimes?> DeleteAsync(int id)
+        public async Task<ShowtimesModel?> DeleteAsync(int id)
         {
-            var existingShowtime = await dbContext.Showtimes.FirstOrDefaultAsync(x => x.ShowtimesId == id);
+            var existingShowtime = await dbContext.Showtimes.FirstOrDefaultAsync(x => x.Id == id);
             
             if (existingShowtime == null)
             {
@@ -42,28 +42,28 @@ namespace DataModels.Repositories
         }
 
         // GET ALL
-        public async Task<List<Showtimes>> GetAllAsync()
+        public async Task<List<ShowtimesModel>> GetAllAsync()
         {
             return await dbContext.Showtimes.ToListAsync();
         }
 
         // GET BY ID
-        public async Task<Showtimes?> GetByIdAsync(int id)
+        public async Task<ShowtimesModel?> GetByIdAsync(int id)
         {
-            return await dbContext.Showtimes.FirstOrDefaultAsync(x => x.ShowtimesId == id);
+            return await dbContext.Showtimes.FirstOrDefaultAsync(x => x.Id == id);
         }
 
         // UPDATE
-        public async Task<Showtimes?> UpdateAsync (int id, Showtimes showtimes)
+        public async Task<ShowtimesModel?> UpdateAsync (int id, ShowtimesModel showtimes)
         {
-            var existingShowtime = await dbContext.Showtimes.FirstOrDefaultAsync(x => x.ShowtimesId == id);
+            var existingShowtime = await dbContext.Showtimes.FirstOrDefaultAsync(x => x.Id == id);
 
             if (existingShowtime == null)
             {
                 return null;
             }
 
-            existingShowtime.ShowtimesId = showtimes.ShowtimesId;
+            existingShowtime.Id = showtimes.Id;
             existingShowtime.MovieId = showtimes.MovieId;
             existingShowtime.TheaterId = showtimes.TheaterId;
             existingShowtime.ShowtimeDate = showtimes.ShowtimeDate;

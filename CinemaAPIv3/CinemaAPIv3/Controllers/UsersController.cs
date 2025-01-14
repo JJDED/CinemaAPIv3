@@ -2,8 +2,8 @@
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using DataModels.Repositories;
-using DataModels.Models.DTO;
 using DataModels.Models.Domain;
+using DataModels.Models.DTO.User;
 
 namespace Cinema.API.Controllers
 {
@@ -26,7 +26,7 @@ namespace Cinema.API.Controllers
         public async Task<IActionResult> Create([FromBody] AddUserRequestDto addUserRequestDto)
         {
             // Map DTO to Domain Model
-            var userDomainModel = mapper.Map<User>(addUserRequestDto);
+            var userDomainModel = mapper.Map<UserModel>(addUserRequestDto);
 
             await userRepository.CreateAsync(userDomainModel);
 
@@ -70,7 +70,7 @@ namespace Cinema.API.Controllers
         public async Task<IActionResult> Update(int id, [FromBody] UpdateUserRequestDto updateUserRequestDto)
         {
             // Map DTO to Domain Model
-            var userDomainModel = mapper.Map<User>(updateUserRequestDto);
+            var userDomainModel = mapper.Map<UserModel>(updateUserRequestDto);
 
             userDomainModel = await userRepository.UpdateAsync(id, userDomainModel);
 

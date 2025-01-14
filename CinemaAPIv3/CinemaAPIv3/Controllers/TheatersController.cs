@@ -1,6 +1,7 @@
 ﻿using AutoMapper;
 using DataModels.Models.Domain;
-using DataModels.Models.DTO;
+using DataModels.Models.DTO.Theater;
+using DataModels.Models.DTO.User;
 using DataModels.Repositories;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
@@ -25,7 +26,7 @@ namespace Cinema.API.Controllers
         public async Task<IActionResult> Create([FromBody] AddTheaterRequestDto addTheaterRequestDto)
         {
             // Map DTO to Domain
-            var theaterDomainModel = mapper.Map<Theater>(addTheaterRequestDto);
+            var theaterDomainModel = mapper.Map<TheaterModel>(addTheaterRequestDto);
 
             await theaterRepository.CreateAsync(theaterDomainModel);
 
@@ -67,7 +68,7 @@ namespace Cinema.API.Controllers
         public async Task<IActionResult> Update(int id, [FromBody] UpdateTheaterRequestDto updateTheaterRequestDto)
         {
             // Map DTO to Domain
-            var theaterDomainModel = mapper.Map<Theater>(updateTheaterRequestDto);
+            var theaterDomainModel = mapper.Map<TheaterModel>(updateTheaterRequestDto);
 
             theaterDomainModel = await theaterRepository.UpdateAsync(id, theaterDomainModel);
 

@@ -1,6 +1,6 @@
 ﻿using AutoMapper;
 using DataModels.Models.Domain;
-using DataModels.Models.DTO;
+using DataModels.Models.DTO.Genre;
 using DataModels.Repositories;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
@@ -25,7 +25,7 @@ namespace Cinema.API.Controllers
         public async Task<IActionResult> Create([FromBody] AddGenreRequestDto addGenreRequestDto)
         {
             // Map DTO to Domain
-            var genreDomainModel = mapper.Map<Genre>(addGenreRequestDto);
+            var genreDomainModel = mapper.Map<GenreModel>(addGenreRequestDto);
 
             await genreRepository.CreateAsync(genreDomainModel);
 
@@ -66,7 +66,7 @@ namespace Cinema.API.Controllers
         public async Task<IActionResult> Update(int id, [FromBody] UpdateGenreRequestDto updateGenreRequestDto)
         {
             // Map DTO to Domain
-            var genreDomainModel = mapper.Map<Genre>(updateGenreRequestDto);
+            var genreDomainModel = mapper.Map<GenreModel>(updateGenreRequestDto);
 
             genreDomainModel = await genreRepository.UpdateAsync(id, genreDomainModel);
             

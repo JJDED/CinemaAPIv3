@@ -17,16 +17,37 @@ namespace DataModels.Repositories
         {
             this.dbContext = dbContext;
         }
-        public async Task<Movie> CreateAsync(Movie movie)
+        public async Task<MovieModel> CreateAsync(MovieModel movie)
         {
+
+            var genres = await dbContext.Genres.Where(g => movie.MovieGenres.Select(mg => mg.GenreId).Contains(g.Id)).ToListAsync();
+            movie.MovieGenres = genres.Select(g => new MovieGenre { MovieId = movie.Id, GenreId = g.Id }).ToList();
+
             await dbContext.Movies.AddAsync(movie);
             await dbContext.SaveChangesAsync();
+
+
+            //string newMovieObject = new string();
+            //MovieModel movieModelObject = new MovieModel();
+            //movieModelObject.Title = movie.Title;
+            //movieModelObject.DurationMinutes = movie.DurationMinutes;
+            //movieModelObject.ReleaseYear = movie.ReleaseYear;
+
+            //await dbContext.SaveChangesAsync();
+
+            //GenreModel genreModelObject = new GenreModel();
+
+            //dbContext.Movies.FirstOrDefaultAsync(x => x.GenreId == movie.Id);
+
             return movie;
         }
 
-        public async Task<Movie?> DeleteAsync(int id)
+        public async Task<MovieModel?> DeleteAsync(int id)
         {
-            var existingMovie = await dbContext.Movies.FirstOrDefaultAsync(x => x.MovieId == id);
+            var existingMovie = await dbContext.Movies.FirstOrDefaultAsync(x => x.Id == id);
+
+            // måske skal vi slette genre?
+            //var existingMovie = await dbContext.Movies.Include(m => m.Genres).FirstOrDefaultAsync(x => x.Id == id);
 
             if (existingMovie == null)
             {
@@ -38,32 +59,30 @@ namespace DataModels.Repositories
             return existingMovie;
         }
 
-        public async Task<List<Movie>> GetAllAsync()
+        public async Task<List<MovieModel>> GetAllAsync()
         {
-            return await dbContext.Movies.ToListAsync();
+            return await dbContext.Movies.Include(m => m.MovieGenres).ToListAsync();
         }
 
-        public async Task<Movie?> GetByIdAsync(int id)
+        public async Task<MovieModel?> GetByIdAsync(int id)
         {
-            return await dbContext.Movies
-                         .FirstOrDefaultAsync(x => x.MovieId == id);
-
-
+            return await dbContext.Movies.Include(m => m.MovieGenres).FirstOrDefaultAsync(x => x.Id == id);
         }
 
-        public async Task<Movie?> UpdateAsync(int id, Movie movie)
+        public async Task<MovieModel?> UpdateAsync(int id, MovieModel movie)
         {
-            var existingMovie = await dbContext.Movies.FirstOrDefaultAsync(x => x.MovieId == id);
+            var existingMovie = await dbContext.Movies.Include(m => m.MovieGenres).ThenInclude(mg => mg.Genre).FirstOrDefaultAsync(x => x.Id == id);
             if (existingMovie == null)
             {
                 return null;
             }
 
+            var genres = await dbContext.Genres.Where(g => movie.MovieGenres.Select(mg => mg.GenreId).Contains(g.Id)).ToListAsync();
+            var movieGenres = genres.Select(g => new MovieGenre { MovieId = existingMovie.Id, GenreId = g.Id }).ToList();
             existingMovie.Title = movie.Title;
             existingMovie.DurationMinutes = movie.DurationMinutes;
-            //existingMovie.Release = movie.Release;
-            //existingMovie.Rating = movie.Rating;
-            existingMovie.Genres = movie.Genres;
+            existingMovie.ReleaseYear = movie.ReleaseYear;
+            existingMovie.MovieGenres = movieGenres;
 
             await dbContext.SaveChangesAsync();
             return existingMovie;

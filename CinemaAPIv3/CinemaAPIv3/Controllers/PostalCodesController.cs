@@ -1,6 +1,6 @@
 ﻿using AutoMapper;
 using DataModels.Models.Domain;
-using DataModels.Models.DTO;
+using DataModels.Models.DTO.PostalCode;
 using DataModels.Repositories;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
@@ -25,7 +25,7 @@ namespace Cinema.API.Controllers
         public async Task<IActionResult> Create([FromBody] AddPostalCodeRequestDto addPostalCodeRequestDto)
         {
             // Map DTO to Domain
-            var postalCodeDomainModel = mapper.Map<PostalCode>(addPostalCodeRequestDto);
+            var postalCodeDomainModel = mapper.Map<PostalCodeModel>(addPostalCodeRequestDto);
 
             await postalCodeRepository.CreateAsync(postalCodeDomainModel);
 
@@ -67,7 +67,7 @@ namespace Cinema.API.Controllers
         public async Task<IActionResult> Update(int id, [FromBody] UpdatePostalCodeRequestDto updatePostalCodeRequestDto)
         {
             // Map DTO to Domain
-            var postalCodeDomainModel = mapper.Map<PostalCode>(updatePostalCodeRequestDto);
+            var postalCodeDomainModel = mapper.Map<PostalCodeModel>(updatePostalCodeRequestDto);
 
             postalCodeDomainModel = await postalCodeRepository.UpdateAsync(id, postalCodeDomainModel);
 
@@ -77,7 +77,7 @@ namespace Cinema.API.Controllers
             }
 
             // Map Domain to DTO
-            return Ok(mapper.Map<PostalCode>(postalCodeDomainModel));
+            return Ok(mapper.Map<PostalCodeModel>(postalCodeDomainModel));
         }
 
         // DELETE Seat - DELETE: /api/seat/{id}

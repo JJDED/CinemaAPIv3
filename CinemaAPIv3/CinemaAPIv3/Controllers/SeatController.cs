@@ -1,6 +1,6 @@
 ﻿using AutoMapper;
 using DataModels.Models.Domain;
-using DataModels.Models.DTO;
+using DataModels.Models.DTO.Seat;
 using DataModels.Repositories;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
@@ -25,7 +25,7 @@ namespace Cinema.API.Controllers
         public async Task<IActionResult> Create([FromBody] AddSeatRequestDto addSeatRequestDto)
         {
             // Map DTO to Domain
-            var seatDomainModel = mapper.Map<Seat>(addSeatRequestDto);
+            var seatDomainModel = mapper.Map<SeatModel>(addSeatRequestDto);
 
             await seatRepository.CreateAsync(seatDomainModel);
 
@@ -36,18 +36,18 @@ namespace Cinema.API.Controllers
         [HttpPost("Create Multiple Seats")]
         public async Task<IActionResult> CreateMultipleSeats(AddSeatRequestDto seatDimension)
         {
-            List<Seat> seatList = new List<Seat>();
+            List<SeatModel> seatList = new List<SeatModel>();
 
             for (int i = 0; i < seatDimension.RowNumber; i++)
             {
                 for (int o = 0; o < seatDimension.SeatNumber; o++)
                 {
-                    Seat seat = new Seat();
+                    SeatModel seat = new SeatModel();
                     seat.RowNumber = i + 1;
                     seat.SeatNumber = o + 1;
 
-                    Hall hall = new Hall();
-                    hall.HallId = 1;
+                    HallModel hall = new HallModel();
+                    hall.Id = 1;
                     seat.Halls.Add(hall);
                     seatList.Add(seat);
                 }
@@ -101,7 +101,7 @@ namespace Cinema.API.Controllers
         public async Task<IActionResult> Update(int id, [FromBody] UpdateSeatRequestDto updateSeatRequestDto)
         {
             // Map DTO to Domain
-            var seatDomainModel = mapper.Map<Seat>(updateSeatRequestDto);
+            var seatDomainModel = mapper.Map<SeatModel>(updateSeatRequestDto);
 
             seatDomainModel = await seatRepository.UpdateAsync(id, seatDomainModel);
 

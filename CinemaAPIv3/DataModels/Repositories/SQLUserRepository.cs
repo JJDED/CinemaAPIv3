@@ -17,16 +17,16 @@ namespace DataModels.Repositories
         {
             this.dbContext = dbContext;
         }
-        public async Task<User> CreateAsync(User user)
+        public async Task<UserModel> CreateAsync(UserModel user)
         {
             await dbContext.Users.AddAsync(user);
             await dbContext.SaveChangesAsync();
             return user;
         }
 
-        public async Task<User?> DeleteAsync(int id)
+        public async Task<UserModel?> DeleteAsync(int id)
         {
-            var existingUser = await dbContext.Users.FirstOrDefaultAsync(x => x.UserId == id);
+            var existingUser = await dbContext.Users.FirstOrDefaultAsync(x => x.Id == id);
 
             if (existingUser == null)
             {
@@ -38,19 +38,19 @@ namespace DataModels.Repositories
             return existingUser;
         }
 
-        public async Task<List<User>> GetAllAsync()
+        public async Task<List<UserModel>> GetAllAsync()
         {
             return await dbContext.Users.ToListAsync();
         }
 
-        public async Task<User?> GetByIdAsync(int id)
+        public async Task<UserModel?> GetByIdAsync(int id)
         {
-            return await dbContext.Users.FirstOrDefaultAsync(x => x.UserId == id);
+            return await dbContext.Users.FirstOrDefaultAsync(x => x.Id == id);
         }
 
-        public async Task<User?> UpdateAsync(int id, User user)
+        public async Task<UserModel?> UpdateAsync(int id, UserModel user)
         {
-            var existingUser = await dbContext.Users.FirstOrDefaultAsync(x => x.UserId == id);
+            var existingUser = await dbContext.Users.FirstOrDefaultAsync(x => x.Id == id);
             if (existingUser == null)
             {
                 return null;

@@ -19,7 +19,7 @@ namespace DataModels.Repositories
         }
 
         // CREATE
-        public async Task<Seat> CreateAsync(Seat seat)
+        public async Task<SeatModel> CreateAsync(SeatModel seat)
         {
             await dbContext.Seat.AddAsync(seat);
             await dbContext.SaveChangesAsync();
@@ -28,7 +28,7 @@ namespace DataModels.Repositories
         }
 
         // CREATE MULTIPLE SEATS
-        public async Task<List<Seat>> CreateAsync(List<Seat> seat)
+        public async Task<List<SeatModel>> CreateAsync(List<SeatModel> seat)
         {
             await dbContext.Seat.AddRangeAsync(seat);
             await dbContext.SaveChangesAsync();
@@ -36,9 +36,9 @@ namespace DataModels.Repositories
         }
 
         // DELETE
-        public async Task<Seat?> DeleteAsync(int id)
+        public async Task<SeatModel?> DeleteAsync(int id)
         {
-            var existingSeat = await dbContext.Seat.FirstOrDefaultAsync(x => x.SeatId == id);
+            var existingSeat = await dbContext.Seat.FirstOrDefaultAsync(x => x.Id == id);
 
             if (existingSeat == null)
             {
@@ -51,28 +51,28 @@ namespace DataModels.Repositories
         }
 
         // GET ALL
-        public async Task<List<Seat>> GetAllAsync()
+        public async Task<List<SeatModel>> GetAllAsync()
         {
             return await dbContext.Seat.ToListAsync();
         }
 
         // GET BY ID
-        public async Task<Seat?> GetByIdAsync(int id)
+        public async Task<SeatModel?> GetByIdAsync(int id)
         {
-            return await dbContext.Seat.FirstOrDefaultAsync(x => x.SeatId == id);
+            return await dbContext.Seat.FirstOrDefaultAsync(x => x.Id == id);
         }
 
         // UPDATE 
-        public async Task<Seat?> UpdateAsync(int id, Seat seat)
+        public async Task<SeatModel?> UpdateAsync(int id, SeatModel seat)
         {
-            var existingSeat = await dbContext.Seat.FirstOrDefaultAsync(x => x.SeatId == id);
+            var existingSeat = await dbContext.Seat.FirstOrDefaultAsync(x => x.Id == id);
 
             if (existingSeat == null)
             {
                 return null;
             }
 
-            existingSeat.SeatId = seat.SeatId;
+            existingSeat.Id = seat.Id;
             existingSeat.RowNumber = seat.RowNumber;
             existingSeat.SeatNumber = seat.SeatNumber;
             //existingSeat.TheaterId = seat.TheaterId;

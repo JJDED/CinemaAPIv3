@@ -1,6 +1,6 @@
 ﻿using AutoMapper;
 using DataModels.Models.Domain;
-using DataModels.Models.DTO;
+using DataModels.Models.DTO.Movie;
 using DataModels.Repositories;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
@@ -25,17 +25,17 @@ namespace Cinema.API.Controllers
         public async Task<IActionResult> Create([FromBody] AddMovieRequestDto addMovieRequestDto)
         {
             // Map DTO to Domain Model
-            var movieDomainModel = mapper.Map<Movie>(addMovieRequestDto);
+            var movieDomainModel = mapper.Map<MovieModel>(addMovieRequestDto);
 
             await movieRepository.CreateAsync(movieDomainModel);
 
             // Map Domain model to DTO
-            return Ok(mapper.Map<MovieDto>(movieDomainModel));
+            var movieDto = mapper.Map<MovieDto>(movieDomainModel);
+            return Ok(movieDto);
         }
 
         // GET Movie
         // GET: /api/Movies
-
         [HttpGet]
         public async Task<IActionResult> GetAll()
         {
@@ -68,7 +68,7 @@ namespace Cinema.API.Controllers
         public async Task<IActionResult> Update(int id, [FromBody] UpdateMovieRequestDto updateMovieRequestDto)
         {
             // Map DTO to Domain Model
-            var movieDomainModel = mapper.Map<Movie>(updateMovieRequestDto);
+            var movieDomainModel = mapper.Map<MovieModel>(updateMovieRequestDto);
 
             movieDomainModel = await movieRepository.UpdateAsync(id, movieDomainModel);
 

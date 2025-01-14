@@ -19,7 +19,7 @@ namespace DataModels.Repositories
         }
 
         // CREATE
-        public async Task<PostalCode> CreateAsync(PostalCode postalCode)
+        public async Task<PostalCodeModel> CreateAsync(PostalCodeModel postalCode)
         {
             await dbContext.PostalCodes.AddAsync(postalCode);
             await dbContext.SaveChangesAsync();
@@ -28,9 +28,9 @@ namespace DataModels.Repositories
         }
 
         // DELETE
-        public async Task<PostalCode?> DeleteAsync(int id)
+        public async Task<PostalCodeModel?> DeleteAsync(int id)
         {
-            var existingPostalCode = await dbContext.PostalCodes.FirstOrDefaultAsync(x => x.PostalCodeId == id);
+            var existingPostalCode = await dbContext.PostalCodes.FirstOrDefaultAsync(x => x.Id == id);
 
             if (existingPostalCode == null)
             {
@@ -42,28 +42,28 @@ namespace DataModels.Repositories
             return existingPostalCode;
         }
 
-        public async Task<List<PostalCode>> GetAllAsync()
+        public async Task<List<PostalCodeModel>> GetAllAsync()
         {
             return await dbContext.PostalCodes.ToListAsync();
         }
 
-        public async Task<PostalCode?> GetByIdAsync(int id)
+        public async Task<PostalCodeModel?> GetByIdAsync(int id)
         {
             return await dbContext.PostalCodes
-                         .FirstOrDefaultAsync(x => x.PostalCodeId == id);
+                         .FirstOrDefaultAsync(x => x.Id == id);
         }
 
         // UPDATE 
-        public async Task<PostalCode?> UpdateAsync(int id, PostalCode postalCode)
+        public async Task<PostalCodeModel?> UpdateAsync(int id, PostalCodeModel postalCode)
         {
-            var existingPostalCode = await dbContext.PostalCodes.FirstOrDefaultAsync(x => x.PostalCodeId == id);
+            var existingPostalCode = await dbContext.PostalCodes.FirstOrDefaultAsync(x => x.Id == id);
 
             if (existingPostalCode == null)
             {
                 return null; 
             }
 
-            existingPostalCode.PostalCodeId = postalCode.PostalCodeId;
+            existingPostalCode.Id = postalCode.Id;
             existingPostalCode.Name = postalCode.Name;
 
             await dbContext.SaveChangesAsync();

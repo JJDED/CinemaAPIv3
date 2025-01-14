@@ -1,9 +1,9 @@
 ﻿using AutoMapper;
 using DataModels.Repositories;
-using DataModels.Models.DTO;
 using DataModels.Models.Domain;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using DataModels.Models.DTO.Address;
 
 namespace Cinema.API.Controllers
 {
@@ -25,7 +25,7 @@ namespace Cinema.API.Controllers
         public async Task<IActionResult> Create([FromBody] AddAddressRequestDto addAddressRequestDto)
         {
             // Map DTO to Domain
-            var addressDomainModel = mapper.Map<Address>(addAddressRequestDto);
+            var addressDomainModel = mapper.Map<AddressModel>(addAddressRequestDto);
 
             await addressRepository.CreateAsync(addressDomainModel);
 
@@ -64,7 +64,7 @@ namespace Cinema.API.Controllers
         public async Task<IActionResult> Update(int id, [FromBody] UpdateAddressRequestDto updateAddressRequestDto)
         {
             // Map DTO to Domain
-            var addressDomainModel = mapper.Map<Address>(updateAddressRequestDto);
+            var addressDomainModel = mapper.Map<AddressModel>(updateAddressRequestDto);
 
             addressDomainModel = await addressRepository.UpdateAsync(id, addressDomainModel);
 

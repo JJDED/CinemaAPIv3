@@ -17,16 +17,16 @@ namespace DataModels.Repositories
         {
             this.dbContext = dbContext;
         }
-        public async Task<Genre> CreateAsync(Genre genre)
+        public async Task<GenreModel> CreateAsync(GenreModel genre)
         {
             await dbContext.Genres.AddAsync(genre);
             await dbContext.SaveChangesAsync();
             return genre;
         }
 
-        public async Task<Genre?> DeleteAsync(int id)
+        public async Task<GenreModel?> DeleteAsync(int id)
         {
-            var existingGenre = await dbContext.Genres.FirstOrDefaultAsync(x => x.GenreId == id);
+            var existingGenre = await dbContext.Genres.FirstOrDefaultAsync(x => x.Id == id);
 
             if (existingGenre == null)
             {
@@ -37,22 +37,20 @@ namespace DataModels.Repositories
             await dbContext.SaveChangesAsync();
             return existingGenre;
         }
-        public async Task<List<Genre>> GetAllAsync()
+        public async Task<List<GenreModel>> GetAllAsync()
         {
             return await dbContext.Genres.ToListAsync();
         }
 
-        public async Task<Genre?> GetByIdAsync(int id)
+        public async Task<GenreModel?> GetByIdAsync(int id)
         {
             return await dbContext.Genres
-                         .FirstOrDefaultAsync(x => x.GenreId == id);
-
-
+                         .FirstOrDefaultAsync(x => x.Id == id);
         }
 
-        public async Task<Genre?> UpdateAsync(int id, Genre genre)
+        public async Task<GenreModel?> UpdateAsync(int id, GenreModel genre)
         {
-            var existingGenre = await dbContext.Genres.FirstOrDefaultAsync(x => x.GenreId == id);
+            var existingGenre = await dbContext.Genres.FirstOrDefaultAsync(x => x.Id == id);
             if (existingGenre == null)
             {
                 return null;

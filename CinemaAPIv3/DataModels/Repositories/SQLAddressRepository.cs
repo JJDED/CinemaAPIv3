@@ -9,7 +9,7 @@ using System.Threading.Tasks;
 
 namespace DataModels.Repositories
 {
-    public class SQLAddressRepository
+    public class SQLAddressRepository : IAddressRepository
     {
         private readonly MyDbContext dbContext;
 
@@ -19,16 +19,16 @@ namespace DataModels.Repositories
         }
 
         // CREATE 
-        public async Task<Address> CreateAsync(Address address)
+        public async Task<AddressModel> CreateAsync(AddressModel address)
         {
             await dbContext.Address.AddAsync(address);
             await dbContext.SaveChangesAsync();
             return address;
         }
 
-        public async Task<Address?> DeleteAsync(int id)
+        public async Task<AddressModel?> DeleteAsync(int id)
         {
-            var existingAddress = await dbContext.Address.FirstOrDefaultAsync(x => x.AddressId == id);
+            var existingAddress = await dbContext.Address.FirstOrDefaultAsync(x => x.Id == id);
             
             if (existingAddress == null)
             {
@@ -40,19 +40,19 @@ namespace DataModels.Repositories
             return existingAddress;
         }
 
-        public async Task<List<Address>> GetAllAsync()
+        public async Task<List<AddressModel>> GetAllAsync()
         {
             return await dbContext.Address.ToListAsync();
         }
 
-        public async Task<Address?> GetByIdAsync(int id)
+        public async Task<AddressModel?> GetByIdAsync(int id)
         {
-            return await dbContext.Address.FirstOrDefaultAsync(x => x.AddressId == id);
+            return await dbContext.Address.FirstOrDefaultAsync(x => x.Id == id);
         }
 
-        public async Task<Address?> UpdateAsync(int id, Address address)
+        public async Task<AddressModel?> UpdateAsync(int id, AddressModel address)
         {
-            var existingAddress = await dbContext.Address.FirstOrDefaultAsync(x => x.AddressId == id);
+            var existingAddress = await dbContext.Address.FirstOrDefaultAsync(x => x.Id == id);
             if (existingAddress == null)
             {
                 return null;

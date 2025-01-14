@@ -9,7 +9,7 @@ using System.Threading.Tasks;
 
 namespace DataModels.Repositories
 {
-    public class SQLTheaterRepository
+    public class SQLTheaterRepository : ITheaterRepository
     {
         private readonly MyDbContext dbContext;
 
@@ -19,7 +19,7 @@ namespace DataModels.Repositories
         }
 
         // GET Theater - POST /api/theater
-        public async Task<Theater> CreateAsync(Theater theater)
+        public async Task<TheaterModel> CreateAsync(TheaterModel theater)
         {
             await dbContext.Theaters.AddAsync(theater);
             await dbContext.SaveChangesAsync();
@@ -27,24 +27,24 @@ namespace DataModels.Repositories
         }
 
         // GET All Theaters - GET /api/theater
-        public async Task<List<Theater>> GetAllAsync()
+        public async Task<List<TheaterModel>> GetAllAsync()
         {
             return await dbContext.Theaters.ToListAsync();
         }
 
         // GET Theater by Id - GET /api/theater/{id}
-        public async Task<Theater?> GetByIdAsync(int id)
+        public async Task<TheaterModel?> GetByIdAsync(int id)
         {
             return await dbContext.Theaters
-                         .FirstOrDefaultAsync(x => x.TheaterId == id);
+                         .FirstOrDefaultAsync(x => x.Id == id);
 
 
         }
 
         // UPDATE Theater by Id - PUT /api/theater/{id}
-        public async Task<Theater?> UpdateAsync(int id, Theater theater)
+        public async Task<TheaterModel?> UpdateAsync(int id, TheaterModel theater)
         {
-            var existingTheater = await dbContext.Theaters.FirstOrDefaultAsync(x => x.TheaterId == id);
+            var existingTheater = await dbContext.Theaters.FirstOrDefaultAsync(x => x.Id == id);
             if (existingTheater == null)
             {
                 return null;
@@ -61,9 +61,9 @@ namespace DataModels.Repositories
         }
 
         // DELETE Theater - DELETE /api/theater{id}
-        public async Task<Theater?> DeleteAsync(int id)
+        public async Task<TheaterModel?> DeleteAsync(int id)
         {
-            var existingTheater = await dbContext.Theaters.FirstOrDefaultAsync(x => x.TheaterId == id);
+            var existingTheater = await dbContext.Theaters.FirstOrDefaultAsync(x => x.Id == id);
 
             if (existingTheater == null)
             {

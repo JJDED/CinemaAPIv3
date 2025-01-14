@@ -9,11 +9,11 @@ namespace DataModels.Repositories
 {
     public interface ITicketRepository
     {
-        Task<Tickets> CreateAsync(Tickets tickets);
-        Task<List<Tickets>> GetAllAsync();
-        Task <Tickets?> GetByIdAsync(int id);
-        Task <Tickets?> UpdateAsync(int id, Tickets tickets);
-        Task<Tickets?> DeleteAsync(int id);
+        Task<TicketsModel> CreateAsync(TicketsModel tickets);
+        Task<List<TicketsModel>> GetAllAsync();
+        Task <TicketsModel?> GetByIdAsync(int id);
+        Task <TicketsModel?> UpdateAsync(int id, TicketsModel tickets);
+        Task<TicketsModel?> DeleteAsync(int id);
 
     }
 }

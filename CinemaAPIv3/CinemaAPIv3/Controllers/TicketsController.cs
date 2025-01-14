@@ -1,6 +1,7 @@
 ﻿using AutoMapper;
 using DataModels.Models.Domain;
-using DataModels.Models.DTO;
+using DataModels.Models.DTO.Ticket;
+using DataModels.Models.DTO.User;
 using DataModels.Repositories;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
@@ -25,11 +26,11 @@ namespace Cinema.API.Controllers
         public async Task<IActionResult> Create([FromBody] AddTicketRequestDto addTicketRequestDto)
         {
             // Map DTO to Domain
-            var ticketDomainModel = mapper.Map<Tickets>(addTicketRequestDto);
+            var ticketDomainModel = mapper.Map<TicketsModel>(addTicketRequestDto);
 
             await ticketRepository.CreateAsync(ticketDomainModel);
 
-            return Ok(mapper.Map<Tickets>(addTicketRequestDto));
+            return Ok(mapper.Map<TicketsModel>(addTicketRequestDto));
         }
 
         // GET ALL Ticket - GET: /api/tickets
@@ -57,7 +58,7 @@ namespace Cinema.API.Controllers
             }
 
             // Map Domain to DTO
-            return Ok(mapper.Map<Tickets>(ticketDomainModel));
+            return Ok(mapper.Map<TicketsModel>(ticketDomainModel));
         }
 
         // UPDATE Tickets - PUT: /api/tickets/{id}
@@ -66,7 +67,7 @@ namespace Cinema.API.Controllers
         public async Task<IActionResult> Update(int id, [FromBody] UpdateTicketRequestDto updateTicketRequestDto)
         {
             // Map DTO to Domain
-            var ticketDomainModel = mapper.Map<Tickets>(updateTicketRequestDto);
+            var ticketDomainModel = mapper.Map<TicketsModel>(updateTicketRequestDto);
 
             ticketDomainModel = await ticketRepository.UpdateAsync(id, ticketDomainModel);
 

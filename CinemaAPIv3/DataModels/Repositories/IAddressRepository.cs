@@ -9,10 +9,10 @@ namespace DataModels.Repositories
 {
     public interface IAddressRepository
     {
-        Task<Address> CreateAsync(Address address);
-        Task<List<Address>> GetAllAsync();
-        Task<Address?> GetByIdAsync(int id);
-        Task<Address?> UpdateAsync(int id, Address address);
-        Task<Address?> DeleteAsync(int id);
+        Task<AddressModel> CreateAsync(AddressModel address);
+        Task<List<AddressModel>> GetAllAsync();
+        Task<AddressModel?> GetByIdAsync(int id);
+        Task<AddressModel?> UpdateAsync(int id, AddressModel address);
+        Task<AddressModel?> DeleteAsync(int id);
     }
 }

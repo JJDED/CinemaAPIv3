@@ -9,7 +9,7 @@ using System.Threading.Tasks;
 
 namespace DataModels.Repositories
 {
-    public class SQLHallRepository
+    public class SQLHallRepository : IHallRepository
     {
         private readonly MyDbContext dbContext;
 
@@ -19,16 +19,16 @@ namespace DataModels.Repositories
         }
 
         // CREATE 
-        public async Task<Hall> CreateAsync(Hall hall)
+        public async Task<HallModel> CreateAsync(HallModel hall)
         {
             await dbContext.Hall.AddAsync(hall);
             await dbContext.SaveChangesAsync();
             return hall;
         }
 
-        public async Task<Hall?> DeleteAsync(int id)
+        public async Task<HallModel?> DeleteAsync(int id)
         {
-            var existingHall = await dbContext.Hall.FirstOrDefaultAsync(x => x.HallId == id);
+            var existingHall = await dbContext.Hall.FirstOrDefaultAsync(x => x.Id == id);
 
             if (existingHall == null)
             {
@@ -40,25 +40,25 @@ namespace DataModels.Repositories
             return existingHall;
         }
 
-        public async Task<List<Hall>> GetAllAsync()
+        public async Task<List<HallModel>> GetAllAsync()
         {
             return await dbContext.Hall.ToListAsync();
         }
 
-        public async Task<Hall?> GetByIdAsync(int id)
+        public async Task<HallModel?> GetByIdAsync(int id)
         {
-            return await dbContext.Hall.FirstOrDefaultAsync(x => x.HallId == id);
+            return await dbContext.Hall.FirstOrDefaultAsync(x => x.Id == id);
         }
 
-        public async Task<Hall?> UpdateAsync(int id, Hall hall)
+        public async Task<HallModel?> UpdateAsync(int id, HallModel hall)
         {
-            var existingHall = await dbContext.Hall.FirstOrDefaultAsync(x => x.HallId == id);
+            var existingHall = await dbContext.Hall.FirstOrDefaultAsync(x => x.Id == id);
             if (existingHall == null)
             {
                 return null;
             }
 
-            existingHall.HallId = hall.HallId;
+            existingHall.Id = hall.Id;
             existingHall.SeatColumn = hall.SeatColumn;
             existingHall.SeatRow = hall.SeatRow;
             existingHall.Seats = hall.Seats;

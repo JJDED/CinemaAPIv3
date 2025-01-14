@@ -9,11 +9,11 @@ namespace DataModels.Repositories
 {
     public interface ISeatRepository
     {
-        Task<Seat> CreateAsync(Seat seat);
-        Task<List<Seat>> CreateAsync(List<Seat> seat);
-        Task<List<Seat>> GetAllAsync();
-        Task<Seat?> GetByIdAsync(int id);
-        Task<Seat?> UpdateAsync(int id, Seat seat);
-        Task<Seat?> DeleteAsync(int id);
+        Task<SeatModel> CreateAsync(SeatModel seat);
+        Task<List<SeatModel>> CreateAsync(List<SeatModel> seat);
+        Task<List<SeatModel>> GetAllAsync();
+        Task<SeatModel?> GetByIdAsync(int id);
+        Task<SeatModel?> UpdateAsync(int id, SeatModel seat);
+        Task<SeatModel?> DeleteAsync(int id);
     }
 }

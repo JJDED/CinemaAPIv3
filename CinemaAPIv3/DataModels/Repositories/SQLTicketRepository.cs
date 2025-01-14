@@ -19,7 +19,7 @@ namespace DataModels.Repositories
         }
 
         // CREATE
-        public async Task<Tickets> CreateAsync (Tickets tickets)
+        public async Task<TicketsModel> CreateAsync (TicketsModel tickets)
         {
             await dbContext.Tickets.AddAsync(tickets);
             await dbContext.SaveChangesAsync();
@@ -27,9 +27,9 @@ namespace DataModels.Repositories
         }
 
         // DELETE
-        public async Task<Tickets?> DeleteAsync(int id)
+        public async Task<TicketsModel?> DeleteAsync(int id)
         {
-            var existingTicket = await dbContext.Tickets.FirstOrDefaultAsync(x => x.TicketsId == id);
+            var existingTicket = await dbContext.Tickets.FirstOrDefaultAsync(x => x.Id == id);
 
             if (existingTicket == null)
             {
@@ -42,28 +42,28 @@ namespace DataModels.Repositories
         }
 
         // GET ALL
-        public async Task<List<Tickets>> GetAllAsync()
+        public async Task<List<TicketsModel>> GetAllAsync()
         {
             return await dbContext.Tickets.ToListAsync();
         }
 
         // GET BY ID
-        public async Task<Tickets?> GetByIdAsync(int id)
+        public async Task<TicketsModel?> GetByIdAsync(int id)
         {
-            return await dbContext.Tickets.FirstOrDefaultAsync(x => x.TicketsId == id);
+            return await dbContext.Tickets.FirstOrDefaultAsync(x => x.Id == id);
         }
 
         // UPDATE
-        public async Task<Tickets?> UpdateAsync(int id, Tickets tickets)
+        public async Task<TicketsModel?> UpdateAsync(int id, TicketsModel tickets)
         {
-            var existingTicket = await dbContext.Tickets.FirstOrDefaultAsync(x => x.TicketsId == id);
+            var existingTicket = await dbContext.Tickets.FirstOrDefaultAsync(x => x.Id == id);
             
             if (existingTicket == null)
             {
                 return null;
             }
 
-            existingTicket.TicketsId = tickets.TicketsId;
+            existingTicket.Id = tickets.Id;
             existingTicket.SeatId = tickets.SeatId;
             existingTicket.PurchaseDate = tickets.PurchaseDate;
 

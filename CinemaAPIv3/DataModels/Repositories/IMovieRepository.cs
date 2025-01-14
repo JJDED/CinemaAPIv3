@@ -9,10 +9,10 @@ namespace DataModels.Repositories
 {
     public interface IMovieRepository
     {
-        Task<Movie> CreateAsync(Movie movie);
-        Task<List<Movie>> GetAllAsync();
-        Task<Movie?> GetByIdAsync(int id);
-        Task<Movie?> UpdateAsync(int id, Movie movie);
-        Task<Movie?> DeleteAsync(int id);
+        Task<MovieModel> CreateAsync(MovieModel movie);
+        Task<List<MovieModel>> GetAllAsync();
+        Task<MovieModel?> GetByIdAsync(int id);
+        Task<MovieModel?> UpdateAsync(int id, MovieModel movie);
+        Task<MovieModel?> DeleteAsync(int id);
     }
 }

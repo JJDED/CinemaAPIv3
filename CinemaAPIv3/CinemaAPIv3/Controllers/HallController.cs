@@ -1,6 +1,7 @@
 ﻿using AutoMapper;
 using DataModels.Models.Domain;
-using DataModels.Models.DTO;
+using DataModels.Models.DTO.Address;
+using DataModels.Models.DTO.Hall;
 using DataModels.Repositories;
 using Microsoft.AspNetCore.Mvc;
 
@@ -21,10 +22,10 @@ namespace Cinema.API.Controllers
 
         // CREATE Hall - POST: /api/hall
         [HttpPost]
-        public async Task<IActionResult> Create([FromBody] AddAddressRequestDto addAddressRequestDto)
+        public async Task<IActionResult> Create([FromBody] AddHallRequestDto addHallRequestDto)
         {
             // Map DTO to Domain
-            var hallDomainModel = mapper.Map<Hall>(addAddressRequestDto);
+            var hallDomainModel = mapper.Map<HallModel>(addHallRequestDto);
 
             await hallRepository.CreateAsync(hallDomainModel);
 
@@ -64,7 +65,7 @@ namespace Cinema.API.Controllers
         public async Task<IActionResult> Update(int id, [FromBody] UpdateHallRequestDto updateHallRequestDto)
         {
             // Map DTO to Domain
-            var hallDomainModel = mapper.Map<Hall>(updateHallRequestDto);
+            var hallDomainModel = mapper.Map<HallModel>(updateHallRequestDto);
 
             hallDomainModel = await hallRepository.UpdateAsync(id, hallDomainModel);
 

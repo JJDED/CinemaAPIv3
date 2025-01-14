@@ -9,11 +9,11 @@ namespace DataModels.Repositories
 {
     public interface IHallRepository
     {
-        Task<Hall> CreateAsync(Hall hall);
-        Task<List<Hall>> GetAllAsync();
-        Task<Hall?> GetByIdAsync(int id);
-        Task<Hall?> UpdateAsync(int id, Hall hall);
-        Task<Hall?> DeleteAsync(int id);
+        Task<HallModel> CreateAsync(HallModel hall);
+        Task<List<HallModel>> GetAllAsync();
+        Task<HallModel?> GetByIdAsync(int id);
+        Task<HallModel?> UpdateAsync(int id, HallModel hall);
+        Task<HallModel?> DeleteAsync(int id);
 
     }
 }
