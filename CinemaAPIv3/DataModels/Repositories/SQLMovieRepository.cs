@@ -61,12 +61,18 @@ namespace DataModels.Repositories
 
         public async Task<List<MovieModel>> GetAllAsync()
         {
-            return await dbContext.Movies.Include(m => m.MovieGenres).ToListAsync();
+            return await dbContext.Movies
+                .Include(m => m.MovieGenres)
+                    .ThenInclude(mg => mg.Genre)
+                .ToListAsync();
         }
 
         public async Task<MovieModel?> GetByIdAsync(int id)
         {
-            return await dbContext.Movies.Include(m => m.MovieGenres).FirstOrDefaultAsync(x => x.Id == id);
+            return await dbContext.Movies
+                .Include(m => m.MovieGenres)
+                    .ThenInclude(mg => mg.Genre)
+                .FirstOrDefaultAsync(x => x.Id == id);
         }
 
         public async Task<MovieModel?> UpdateAsync(int id, MovieModel movie)
