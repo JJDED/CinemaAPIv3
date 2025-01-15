@@ -1,11 +1,30 @@
-<div class="movie">
-    <h3>
-        {{movie.movieName}}
-    </h3>
-    <p class="showtimes">
-        {{movie.showtimes}}
-    </p>
-    <p>
-        {{movie.hall}}
-    </p>
+<div 
+    class="movie">
+        <h3>{{movie.title}}
+            <span class="icons">
+                <fa-icon
+                    (click)="toggleEdit()"
+                    [ngStyle]="{color: 'purple'}"
+                    [icon]="faPencil">
+                </fa-icon>
+                <fa-icon 
+                    (click)="onDelete(movie)" 
+                    [ngStyle]="{color: 'purple'}" 
+                    [icon]="faTimes">
+                </fa-icon>
+            </span>
+        </h3>
+    <p>{{movie.releaseYear}}</p>
+    <p>{{movie.durationMinutes}} min</p> 
+    <div *ngIf="isEditing">
+        <input type="text" [(ngModel)]="editTitle" placeholder="Edit title">
+        <input type="number" [(ngModel)]="editDurationMinutes" placeholder="Edit duration in minutes">
+        <input type="number" [(ngModel)]="editReleaseYear" placeholder="Edit release year">
+        <app-button 
+            text="Update" 
+            color="purple"             
+            [isSmall]="true" 
+            (btnClick)="onUpdate()">
+        </app-button>
+    </div>
 </div>

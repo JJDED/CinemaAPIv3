@@ -1,0 +1,30 @@
+<form *ngIf="showAddMovie" class="add-form" (ngSubmit)="onSubmit()">
+    <div class="form-control">
+        <label for="title">Movie Title</label>
+        <input 
+        type="text" 
+        name="title" 
+        [(ngModel)]="title" 
+        id="title" 
+        placeholder="Add movie"/>
+    </div>
+    <div class="form-control">
+        <label for="duration">Duration in Minutes</label>
+        <input 
+        type="number" 
+        name="duration" 
+        [(ngModel)]="durationMinutes" 
+        id="duration" 
+        placeholder="Add duration in minutes"/>
+    </div>
+    <div class="form-control">
+        <label for="releaseYear">Release year</label>
+        <input 
+        type="number" 
+        name="releaseYear" 
+        [(ngModel)]="releaseYear" 
+        id="release"
+        placeholder="Add year of release"/>
+    </div>    
+    <input type="submit" value="Save Movie" class="btn btn-block"/>
+</form>

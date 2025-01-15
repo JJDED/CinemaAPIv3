@@ -1,4 +1,8 @@
+<app-add-movie (onAddMovie)="createMovie($event)"></app-add-movie>
+<app-update-movie *ngIf="selectedMovie" [movie]="selectedMovie" (onUpdateMovie)="updateMovie($event)"></app-update-movie>
 <app-movie-item 
     *ngFor="let movie of movies" 
-    [movie]="movie">
+    [movie]="movie"
+    (onDeleteMovie)="deleteMovie(movie.id)"
+    (onUpdateMovie)="selectMovie(movie); updateMovie($event)">
 </app-movie-item>

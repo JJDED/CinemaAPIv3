@@ -22,3 +22,8 @@
     cursor: pointer;
 
 }
+
+.icons {
+    display: flex;
+    gap: 10px; /* Adjust the gap between icons as needed */
+}
